@@ -13,12 +13,13 @@
 </head>
 
 <body>
-    <button onclick="record()">Speak to Drone</button>
-    <input type="text" name="" id="speechToText" placeholder="Say Come or Go" onclick="record()">
-    <div id="spokenword"></div>
-    <div id="dronevid"></div>
-
-    <a class="btn btn-primary btn-lg" href="dotanim.html" role="button" id="buttonstart">Next</a>
+    <div class="jumbotron container">
+        <h1 class="display-4" style="padding-bottom: 10px;">Speak to Drone!</h1>
+        <button onclick="record()">Ready to Speak</button>
+        <input type="text" name="" id="speechToText" placeholder="Say Come or Go" onclick="record()">
+        <div id="spokenword" style="padding-bottom: 10px; padding-top: 10px;"></div>
+        <div id="dronevid"></div>
+    </div>
 
     <script>
         function record() {
