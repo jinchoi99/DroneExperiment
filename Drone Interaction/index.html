@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    <title>Speech Recognition</title>
+
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div class="jumbotron container">
+        <h1 class="display-4" style="padding-bottom: 10px;">Speak to Drone A!</h1>
+        <button onclick="record()">Ready to Speak</button>
+        <input type="text" name="" id="speechToText" placeholder="Say Come or Go" onclick="record()">
+        <div id="spokenword" style="padding-bottom: 10px; padding-top: 10px;"></div>
+        <div id="dronevid"></div>
+        <a class="btn btn-primary btn-lg" href="speechRecog_B.html" role="button" id="buttonnext">Interact with Drone
+            B</a>
+    </div>
+
+    <script>
+        function record() {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = "en-GB";
+            recognition.continuous = true;
+            recognition.interimResults = false;
+
+            recognition.onresult = function (event) {
+                let spokenWord = "";
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    spokenWord = event.results[i][0].transcript;
+                    document.getElementById('speechToText').value = spokenWord;
+                }
+                console.log(spokenWord);
+                if (spokenWord.includes("come")) {
+                    document.getElementById('spokenword').innerHTML = "Drone: \"I'm coming!\"<br>Say any word or phrase with the word \"go\" (e.g. \"Go away!\").<br>Say \"stop\" to finish.";
+                    document.getElementById('dronevid').innerHTML = `<video autoplay muted id="comevid" width="500" src="Coming.mp4" type="video / mp4"></video>`;
+                    document.getElementById("comevid").currentTime = 3;
+                }
+                else if (spokenWord.includes("go")) {
+                    document.getElementById('spokenword').innerHTML = "Drone: \"I'm going!\"<br>Say any word or phrase with the word \"come\" (e.g. \"Come here!\").<br>Say \"stop\" to finish.";
+                    document.getElementById('dronevid').innerHTML = `<video autoplay muted id="govid" width="500" src="Going.mp4" type="video / mp4"></video>`;
+                    document.getElementById("govid").currentTime = 0.5;
+                }
+                else if (spokenWord.includes("stop")) {
+                    recognition.stop();
+                    document.getElementById('dronevid').innerHTML = "";
+                    document.getElementById('spokenword').innerHTML = "Drone: \"Bye!\"";
+                }
+                else {
+                    document.getElementById('spokenword').innerHTML = "Say any word or phrase with the word \"come\"or \"go\".<br>Say \"stop\" to finish.";
+                }
+            }
+            recognition.start();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
