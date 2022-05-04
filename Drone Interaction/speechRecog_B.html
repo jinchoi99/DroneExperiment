@@ -37,23 +37,23 @@
                     document.getElementById('speechToText').value = spokenWord;
                 }
                 console.log(spokenWord);
-                if (spokenWord.includes("go")) {
-                    document.getElementById('spokenword').innerHTML = "Drone: \"I'm coming!\"<br>Say any word or phrase with the word \"come\" (e.g. \"Come here!\").<br>Say \"stop\" to finish.";
-                    document.getElementById('dronevid').innerHTML = `<video autoplay muted id="comevid" width="500" src="Coming.mp4" type="video / mp4"></video>`;
-                    document.getElementById("comevid").currentTime = 3;
-                }
-                else if (spokenWord.includes("come")) {
-                    document.getElementById('spokenword').innerHTML = "Drone: \"I'm going!\"<br>Say any word or phrase with the word \"go\" (e.g. \"Go away!\").<br>Say \"stop\" to finish.";
+                if (spokenWord.includes("come")) {
+                    document.getElementById('spokenword').innerHTML = "Drone B: \"I'm coming!\"<br>Say any word or phrase with the word \"go\" (e.g. \"Go away!\").<br>Say \"stop\" to finish.";
                     document.getElementById('dronevid').innerHTML = `<video autoplay muted id="govid" width="500" src="Going.mp4" type="video / mp4"></video>`;
                     document.getElementById("govid").currentTime = 0.5;
+                }
+                else if (!spokenWord.includes("goo") && spokenWord.includes("go")) {
+                    document.getElementById('spokenword').innerHTML = "Drone B: \"I'm going!\"<br>Say any word or phrase with the word \"come\" (e.g. \"Come here!\").<br>Say \"stop\" to finish.";
+                    document.getElementById('dronevid').innerHTML = `<video autoplay muted id="comevid" width="500" src="Coming.mp4" type="video / mp4"></video>`;
+                    document.getElementById("comevid").currentTime = 3;
                 }
                 else if (spokenWord.includes("stop")) {
                     recognition.stop();
                     document.getElementById('dronevid').innerHTML = "";
-                    document.getElementById('spokenword').innerHTML = "Drone: \"Bye!\"";
+                    document.getElementById('spokenword').innerHTML = "Drone B: \"Bye!\"";
                 }
                 else {
-                    document.getElementById('spokenword').innerHTML = "Say any word or phrase with the word \"come\"or \"go\".<br>Say \"stop\" to finish.";
+                    document.getElementById('spokenword').innerHTML = "Say any word or phrase with the word \"come\"or \"go\".<br>Say \"stop\" to finish.<br><br>";
                 }
             }
             recognition.start();
